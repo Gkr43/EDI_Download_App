@@ -1,0 +1,308 @@
+<mvc:View controllerName="edidownloadapp.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+     xmlns:core="sap.ui.core" xmlns:ui="sap.ui.table"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content >
+		<Toolbar >
+		<SearchField placeholder="Search by Billing Document" change="onChangeSearch" liveChange="onLiveChangeSearch" width="30%"></SearchField>
+		<DatePicker class="sapUiTinyMargin" placeholder="Search by Billing date" id="DatePickId" width="30%"></DatePicker>
+		<Button text="Go" type="Emphasized" press="onGo"></Button>
+		</Toolbar>
+        <ui:Table
+				id="EDIDWTabl_id"
+				rows="{EdiModel>/results}"
+				selectionMode="MultiToggle"
+				rowSelectionChange="onSelect"
+				visibleRowCountMode="Auto"
+				paste="onPaste"
+				threshold="20" 
+				enableBusyIndicator="true"
+				ariaLabelledBy="title">
+					<ui:extension>
+					<OverflowToolbar style="Clear">
+						<Title id="EDITabTtl_id"/>
+						<ToolbarSpacer />
+						<Button type="Emphasized" text="Download" icon="sap-icon://download" press="onDownload"></Button>
+					</OverflowToolbar>
+				</ui:extension>
+				<ui:columns>
+				<ui:Column width="13rem" filterProperty="EdiModel>BillingDocument" filterType="">
+						<Label text="Billing Document" />
+						<ui:template>
+							<Text text="{EdiModel>BillingDocument}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+				  <ui:Column width="13rem">
+						<Label text="Unloading Point" />
+						<ui:template>
+							<Text text="{EdiModel>UnloadingPointName}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="13rem">
+						<Label text="Acount at Customer" />
+						<ui:template>
+							<Text text="{EdiModel>AccountByCustomer}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="13rem">
+						<Label text="Gst Number (UACPL)" />
+						<ui:template>
+							<Text text="{EdiModel>TaxNumber1}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="HSN Code" />
+						<ui:template>
+							<Text text="{EdiModel>ConsumptionTaxCtrlCode}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					
+					<ui:Column width="10rem">
+						<Label text="SAC Code" />
+						<ui:template>
+							<Text text="{EdiModel>ConsumptionTaxCtrlCode1}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Customer Material Number" />
+						<ui:template>
+							<Text text="{EdiModel>MaterialByCustomer}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Customer PO Number" />
+						<ui:template>
+							<Text text="{EdiModel>PurchaseOrderByCustomer}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Purchase Order Item" />
+						<ui:template>
+							<Text text="{EdiModel>UnderlyingPurchaseOrderItem}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Reference(odn Number)" />
+						<ui:template>
+							<Text text="{EdiModel>ReferenceDocNo}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Billing Date" />
+						<ui:template>
+							<Text text="{EdiModel>BillingDocumentDate1}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Billing Quantity" />
+						<ui:template>
+							<Text text="{EdiModel>BillingQuantity}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Material Amount " />
+						<ui:template>
+							<Text text="{EdiModel>BASIC_RATE}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Basic Value" />
+						<ui:template>
+							<Text text="{EdiModel>TotalNetAmount}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Fright Charges" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="P&amp;F Charges" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Others" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Sub Total" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="13rem">
+						<Label text="Additional value for tax base" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Tax Base Value" />
+						<ui:template>
+							<Text text="{EdiModel>BASIC_VALUE}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="CGST%" />
+						<ui:template>
+							<Text text="{EdiModel>CGST_RATE}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="CGST Amount" />
+						<ui:template>
+							<Text text="{EdiModel>CGST_AMOUNT}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="SGST%" />
+						<ui:template>
+							<Text text="{EdiModel>SGST_RATE}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="SGST Amount" />
+						<ui:template>
+							<Text text="{EdiModel>SGST_AMOUNT}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="UTGST%" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="UTGST Amount" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="IGST%" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="IGST Amount" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Bill amount (grand Total)" />
+						<ui:template>
+							<Text text="{EdiModel>TOTALGROSSAMOUNT}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="E-Way bill No" />
+						<ui:template>
+							<Text text="{EdiModel>EWayBill_No}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="E-Way bill Date" />
+						<ui:template>
+							<Text text="{EdiModel>EWayBill_Date}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Vehicle No" />
+						<ui:template>
+							<Text text="{EdiModel>YY1_VehicleNumber_DLH}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Remark1 ( Use to update TROLLEY/BINS)" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Remark 2" />
+						<ui:template>
+							<Text text="{EdiModel>BillingDocument}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="QR CODE" />
+						<ui:template>
+							<Text text="{EdiModel>qrtext}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Challan Number" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Challan Date" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Challan Mat" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="CSV1" />
+						<ui:template>
+							<Text text="{EdiModel>BLANK}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+					
+				</ui:columns>
+			</ui:Table>
+        </content>
+    </Page>
+</mvc:View>
+
