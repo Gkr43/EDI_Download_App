@@ -26,9 +26,13 @@ sap.ui.define([
             init: function () {
                 // call the base component's init function
                 UIComponent.prototype.init.apply(this, arguments);
-                jQuery.sap.includeScript('model/crypto-js.min.js');
-                jQuery.sap.includeScript('model/jquery.min.js');
-                jQuery.sap.includeScript('assets/js/aes.js');
+                var CryptoJspath=sap.ui.require.toUrl("edidownloadapp/model/crypto-js.min.js")
+               var Jquerypath=sap.ui.require.toUrl("edidownloadapp/model/jquery.min.js")
+               var Aespath=sap.ui.require.toUrl("edidownloadapp/model/aes.min.js")
+
+                jQuery.sap.includeScript(CryptoJspath);
+                jQuery.sap.includeScript(Jquerypath);
+                jQuery.sap.includeScript(Aespath);
 
                 
                   // enable routing

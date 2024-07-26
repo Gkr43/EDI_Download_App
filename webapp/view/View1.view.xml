@@ -5,7 +5,7 @@
     <Page id="page" title="{i18n>title}">
         <content >
 		<Toolbar >
-		<SearchField placeholder="Search by Billing Document" change="onChangeSearch" liveChange="onLiveChangeSearch" width="30%"></SearchField>
+		<SearchField visible="false" id="idSearchField" placeholder="Search by Billing Document" change="onChangeSearch" liveChange="onLiveChangeSearch" width="30%"></SearchField>
 		<DatePicker class="sapUiTinyMargin" placeholder="Search by Billing date" id="DatePickId" width="30%"></DatePicker>
 		<Button text="Go" type="Emphasized" press="onGo"></Button>
 		</Toolbar>
@@ -299,7 +299,73 @@
 							<Text text="{EdiModel>BLANK}" wrapping="false" />
 						</ui:template>
 					</ui:Column>
-					
+
+					<ui:Column width="10rem">
+						<Label text="Purchase Order No." />
+						<ui:template>
+							<Text text="{EdiModel>YY1_customer_po}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Customer Line Item" />
+						<ui:template>
+							<Text text="{EdiModel>YY1_customer_poitem}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Customer Plant" />
+						<ui:template>
+							<Text text="{EdiModel>YY1_customer_plant}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+						<Label text="Reference No" />
+						<ui:template>
+							<Text text="{EdiModel>ReferenceDocNo}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+					<ui:Column width="10rem">
+
+						<Label text="Invoice Date" />
+						<ui:template>
+							<Text text="{EdiModel>BillingDocumentDate}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+
+						<Label text="Material No" />
+						<ui:template>
+							<Text text="{EdiModel>custmat}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+
+						<Label text="Invoice Qty." />
+						<ui:template>
+							<Text text="{EdiModel>BillingQuantity}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+					<ui:Column width="10rem">
+
+						<Label text="Packaging Details" />
+						<ui:template>
+							<Text text="{EdiModel>YY1_PackingDetails1_BDH_1}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
+					<ui:Column width="10rem">
+
+						<Label text="Vehicle Number" />
+						<ui:template>
+							<Text text="{EdiModel>YY1_vehno}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+
 				</ui:columns>
 			</ui:Table>
         </content>

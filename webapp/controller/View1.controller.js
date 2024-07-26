@@ -10,15 +10,23 @@ function (Controller,DateFormat,Filter) {
 
     return Controller.extend("edidownloadapp.controller.View1", {
         onInit: function () {
-           var oModel=this.getOwnerComponent().getModel();
-           
-           
-           
-           
-            var that=this;
-            oModel.read("/ZC_SD_INVOICES",{
+           this.oModel=this.getOwnerComponent().getModel();
+
+},
+
+readCall:function(oFilter){
+var that=this;
+
+this.oModel.read("/ZC_SD_INVOICES?$top=1000",{
+                urlParameters: {
+                    "$top": "1000"
+                },
+                filters:oFilter,
                 success:function(oData,OResponse){
                     debugger;
+                   var visSearch=oData.results.length>0 ? true : false
+                    that.byId('idSearchField').setVisible(visSearch);
+                    
                     for(var i=0;i<oData.results.length;i++){
                         oData.results[i].selected=false;
                         oData.results[i].BLANK="";
@@ -40,7 +48,6 @@ function (Controller,DateFormat,Filter) {
                     debugger;
                 }
             });
-            
 },
         formatDate(dateval,obj){
             if(dateval){
@@ -77,11 +84,12 @@ function (Controller,DateFormat,Filter) {
                 pattern: "dd-MMM-yyyy" ///ddmmyyyy
             });
             
-            var filDate= oDateFormat.format(oDate);
+            //var filDate= oDateFormat.format(oDate);
             if(oDate){
-                aFilters.push(new Filter("BillingDocumentDate","EQ", filDate));
+                aFilters.push(new Filter("BillingDocumentDate","EQ", oDate));
             }
-            oBinding.filter(aFilters);
+           // oBinding.filter(aFilters);
+           this.readCall(aFilters)
         },
         onSelect:function(oEvent){
                 debugger;
@@ -97,7 +105,9 @@ function (Controller,DateFormat,Filter) {
 						data[i].selected=false;
 					}
                 }else{
-                    var index=oEvent.getParameter('rowIndex');
+                    //var index=oEvent.getParameter('rowIndex');
+                    var spath=oEvent.getParameter('rowContext').getPath();
+                    var index=parseInt(spath.substring(spath.lastIndexOf('/')+1));
                     var obj=oEvent.getSource().getModel('EdiModel').getData().results[index];
                     if(obj.selected===false){
                         obj.selected=true;
@@ -129,56 +139,69 @@ function (Controller,DateFormat,Filter) {
             var a = document.createElement("a");
          
            var result = selItm.map(function(a) {
-            return [
+            var setA= [
                
-               // a.BillingDocument,
-               // a.BillingDocumentType,
-                a.UnloadingPointName,
-                a.AccountByCustomer,
-                a.TaxNumber1,
-                a.ConsumptionTaxCtrlCode,
-                a.ConsumptionTaxCtrlCode1,
-                a.MaterialByCustomer,
-                a.PurchaseOrderByCustomer,
-                a.UnderlyingPurchaseOrderItem,
+                // a.BillingDocument,
+                // a.BillingDocumentType,
+                 a.UnloadingPointName,
+                 a.AccountByCustomer,
+                 a.TaxNumber1,
+                 a.ConsumptionTaxCtrlCode,
+                 a.ConsumptionTaxCtrlCode1,
+                 a.MaterialByCustomer,
+                 a.PurchaseOrderByCustomer,
+                 a.UnderlyingPurchaseOrderItem,
+                 a.ReferenceDocNo,
+                 a.BillingDocumentDate,
+                 a.BillingQuantity,
+                 a.BASIC_RATE,
+                // a.BillingQuantityUnit,
+                 a.TotalNetAmount,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BASIC_VALUE,
+              //   a.TransactionCurrency,
+                 a.CGST_RATE,
+                 a.CGST_AMOUNT,
+                 a.SGST_RATE,
+                 a.SGST_AMOUNT,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                 a.TOTALGROSSAMOUNT,
+                 a.EWayBill_No,
+                 a.EWayBill_Date,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                 a.qrtext,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                 a.BLANK,
+                
+                 //a.customerproduct,
+                 //a.customerponumber,
+                 //a.customerpoitem,
+                 
+             ];
+             var setB=[
+                a.YY1_customer_po,
+                a.YY1_customer_poitem,
+                a.YY1_customer_plant,
                 a.ReferenceDocNo,
                 a.BillingDocumentDate,
+                a.custmat,
                 a.BillingQuantity,
-                a.BASIC_RATE,
-               // a.BillingQuantityUnit,
-                a.TotalNetAmount,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-                a.BASIC_VALUE,
-             //   a.TransactionCurrency,
-                a.CGST_RATE,
-                a.CGST_AMOUNT,
-                a.SGST_RATE,
-                a.SGST_AMOUNT,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-                a.TOTALGROSSAMOUNT,
-                a.EWayBill_No,
-                a.EWayBill_Date,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-                a.qrtext,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-                a.BLANK,
-               
-                //a.customerproduct,
-                //a.customerponumber,
-                //a.customerpoitem,
-                
-            ];
+                a.YY1_PackingDetails1_BDH_1,
+                a.YY1_vehno
+             ]
+            return a.ACCDOC ? setA : setB; 
+          
         });
         
             var content=result.join('\n');
