@@ -365,6 +365,13 @@
 							<Text text="{EdiModel>YY1_vehno}" wrapping="false" />
 						</ui:template>
 					</ui:Column>
+					<ui:Column width="10rem">
+
+						<Label text="Accounting Doc." />
+						<ui:template>
+							<Text text="{EdiModel>ACCDOC}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
 
 				</ui:columns>
 			</ui:Table>

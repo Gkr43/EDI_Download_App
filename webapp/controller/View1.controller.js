@@ -175,7 +175,7 @@ this.oModel.read("/ZC_SD_INVOICES?$top=1000",{
                  a.TOTALGROSSAMOUNT,
                  a.EWayBill_No,
                  a.EWayBill_Date,
-                 a.BLANK,
+                 a.YY1_VehicleNumber_DLH,
                  a.BLANK,
                  a.BLANK,
                  a.qrtext,
